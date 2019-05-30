@@ -1,0 +1,83 @@
+.game-settings__wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.game-settings__start {
+  margin-left: 10px;
+  background-color: dimgray;
+  border-radius: 4px;
+  width: 125px;
+  height: 50px;
+  padding: 10px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  &:hover {
+    background-color: slategray;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.game-settings__input {
+  border-radius: 4px;
+  margin-right: 5px;
+  margin-left: 5px;
+  box-sizing: border-box;
+  width: 205px;
+  background-color: #F3F3F3;
+  border: none;
+  color: #696565;
+  padding: 10px;
+  height: 50px;
+  font-weight: 600;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.game-settings__mode {
+  font-weight: 600;
+  color: #86979C;
+  width: 205px;
+  margin-right: 10px;
+  height: 50px;
+  cursor: pointer;
+  .select__single-value {
+    color: #696565;
+  }
+  .select__control {
+    height: inherit;
+    &:focus {
+      outline: none;
+    }
+  }
+  .select__control--is-focused:hover,
+  .select__control--is-focused {
+    box-shadow: none;
+    border-color: hsl(0,0%,80%);
+  }
+  .select__indicator-separator{
+    display: none;
+  }
+
+  .select__option {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .select__menu {
+    margin-top: 0;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
