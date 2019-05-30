@@ -1,0 +1,17 @@
+.leader-record {
+  background-color: #CFD8DB;
+  height: 60px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #808080;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.leader-record__winner-date {}
+.leader-record__winner-name {
+  display: inline-block;
+  margin-right: 10px;
+}
