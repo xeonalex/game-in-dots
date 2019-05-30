@@ -2,9 +2,11 @@
   display: flex;
   width: 100%;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 .game-settings__start {
+  text-transform: uppercase;
   margin-left: 10px;
   background-color: dimgray;
   border-radius: 4px;
@@ -49,12 +51,14 @@
   width: 205px;
   margin-right: 10px;
   height: 50px;
-  cursor: pointer;
   .select__single-value {
     color: #696565;
   }
   .select__control {
+    cursor: pointer;
     height: inherit;
+    background-color: #CFD8DC;
+    border-color: #CFD8DC;
     &:focus {
       outline: none;
     }
@@ -62,11 +66,20 @@
   .select__control--is-focused:hover,
   .select__control--is-focused {
     box-shadow: none;
-    border-color: hsl(0,0%,80%);
+    border-color: #CFD8DC;
   }
   .select__indicator-separator{
     display: none;
   }
+
+  .select__indicator {
+    color: hsl(0,0%,60%);
+    &:hover {
+      color: hsla(0, 1%, 50%, 1);
+    }
+  }
+
+
 
   .select__option {
     &:hover {
