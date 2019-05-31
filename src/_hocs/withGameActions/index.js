@@ -36,7 +36,7 @@ const withGameActions = (WrappedComponent) => {
                 arrShuffle: arrShuffle,
                 idx: -1,
                 score: {
-                    player: 12,
+                    player: 0,
                     computer: 0
                 },
                 result: {}
@@ -52,7 +52,7 @@ const withGameActions = (WrappedComponent) => {
             });
 
             this.props.setGameWinner(winner);
-            this.props.addRecordToLeaderBoard({winner, date});
+            // this.props.addRecordToLeaderBoard({winner, date});
             clearTimeout(this.timer);
         }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import withGameActions from "../../_hocs/withGameActions";
-import GameCell from "./GameCell";
+import GameCell from "../GameCell";
 import './styles.scss'
 
 const GameField = ({activatedCellId, cellsArray, handleGameCellClick}) => {

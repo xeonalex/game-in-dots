@@ -1,33 +1,38 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {fetchGameSettings, setGameSettings} from "../../_redux/actions/game.settings.actions";
-import Select from 'react-select';
 import './styles.scss'
+import { Formik, Form } from 'formik';
+import * as yup from "yup";
+import SettingsTextInput from "../SettingsTexInput";
+import GameModeSelectElement from "../SettingsSelectElement";
 
 class GameSettings extends Component {
     state = {
-        playerName: '',
-        mode: ''
+        formikValues: {
+            playerName: '',
+            mode: {
+                name: ''
+            }
+        }
     };
 
     componentDidMount() {
         this.props.fetchGameSettings();
+        this.initValidationSchema();
     }
 
-    handlePlayerChange = (e) => {
-        let { value } = e.target;
+    initValidationSchema () {
+        this.schema = yup.object({
+            playerName: yup.string().required('Name is required'),
+            mode: yup.object({
+                name: yup.string().required('Mode is required')
+            })
+        });
+    }
 
-        this.setState({
-          playerName: value
-        })
-    };
-
-    handleModeSelected = (option) =>{
-        this.setState({mode: option});
-    };
-
-    handlePlayPressed = () => {
-        const {playerName, mode} = this.state;
+    handleSubmit = (values) => {
+        const {playerName, mode} = values;
         const settings = {
             mode,
             playerName
@@ -38,9 +43,8 @@ class GameSettings extends Component {
 
     render() {
         let {
-            handlePlayerChange,
-            handleModeSelected,
-            handlePlayPressed,
+            handleSubmit,
+            schema,
             props: {
                 gameSettings: {
                     modes,
@@ -49,26 +53,29 @@ class GameSettings extends Component {
                     }
                 }
             },
-            state: { playerName }
+            state: { formikValues }
         } = this;
 
         const playButtonText = winner ? 'play again' : 'play';
 
         return (
-            <div className={'game-settings__wrapper'}>
-                <Select
-                    placeholder={'Pick game mode'}
-                    className="game-settings__mode"
-                    classNamePrefix="select"
-                    options={modes}
-                    getOptionLabel={(option)=>option.name}
-                    getOptionValue={(option)=>option.name}
-                    defaultOptions
-                    onChange={handleModeSelected}
-                />
-                <input className="game-settings__input" type="text" value={playerName} onChange={handlePlayerChange}/>
-                <button className="game-settings__start" onClick={handlePlayPressed}> {playButtonText} </button>
-            </div>
+            <Formik
+                validationSchema={schema}
+                onSubmit={handleSubmit}
+                initialValues={formikValues}
+                validateOnChange = {false}
+            >
+                {({ setFieldValue }) => (
+                    <Form className={'game-settings__wrapper'}>
+                        <GameModeSelectElement
+                            handleChange={ (option) =>setFieldValue('mode', option) }
+                            options={ modes }
+                        />
+                        <SettingsTextInput name="playerName" placeholder='Enter your name'/>
+                        <button type="submit" className="game-settings__start" > { playButtonText } </button>
+                    </Form>
+                )}
+            </Formik>
         );
     }
 }
@@ -77,7 +84,6 @@ const mapDispatchToProps = {
     fetchGameSettings,
     setGameSettings
 };
-
 
 function mapStateToProps(state) {
     let { gameSettings } = state;
