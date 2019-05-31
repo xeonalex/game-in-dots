@@ -59,12 +59,6 @@ const withGameActions = (WrappedComponent) => {
 
             this.props.setGameWinner(winner);
             this.props.addRecordToLeaderBoard({winner, date});
-
-            this.clearActionTimeout();
-        }
-
-        clearActionTimeout(){
-            this.timer = null;
             clearTimeout(this.timer);
         }
 
@@ -73,10 +67,9 @@ const withGameActions = (WrappedComponent) => {
 
             const { delay } = this.props.mode;
 
-            if (this.timer) this.clearActionTimeout();
+            if (this.timer) clearTimeout(this.timer);
 
             this.setNewRandomCell();
-
             this.timer = setTimeout(()=>{
                 this.increaseScore('computer');
                 this.activateRandomCell();
