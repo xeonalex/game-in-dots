@@ -137,6 +137,7 @@ const withGameActions = (WrappedComponent) => {
 
         render() {
             let {
+                props: {isActive},
                 state: {arr, activatedCell},
                 onGameCellClick
             } = this;
@@ -148,6 +149,7 @@ const withGameActions = (WrappedComponent) => {
                     cellsArray={arr}
                     activatedCell={activatedCell}
                     handleGameCellClick={onGameCellClick}
+                    isGameActive={isActive}
                     {...this.props}/>);
         }
     }

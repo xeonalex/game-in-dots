@@ -7,11 +7,12 @@ import withGameActions from "../../_hocs/withGameActions";
 import './styles.scss'
 
 
-const GameField = ({activatedCell, cellsArray, handleGameCellClick}) => {
+const GameField = ({isGameActive, activatedCell, cellsArray, handleGameCellClick}) => {
+    let newClasses = isGameActive ? '' : 'game-over';
 
     if (!activatedCell) return '';
     return (
-        <div className={'game-field__container'}>
+        <div className={`game-field__container ${newClasses}`}>
             {
                 cellsArray.map(( cells, x )=>
                     <GameRow
@@ -30,6 +31,7 @@ GameField.propTypes = {
     handleGameCellClick: PropTypes.func.isRequired,
     cellsArray: PropTypes.array.isRequired,
     activatedCell: PropTypes.any,
+    isGameEnded: PropTypes.bool.isRequired
 };
 
 export default withGameActions(GameField);
