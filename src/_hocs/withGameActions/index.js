@@ -79,7 +79,6 @@ const withGameActions = (WrappedComponent) => {
         setNewRandomCell(){
             this.setState((state)=>{
                 const newCellId = state.idx+1;
-
                 const randomCell = state.arrShuffle[newCellId];
                 const activatedCell = createCordsObjFromString(randomCell);
 
@@ -149,7 +148,6 @@ const withGameActions = (WrappedComponent) => {
                     cellsArray={arr}
                     activatedCell={activatedCell}
                     handleGameCellClick={onGameCellClick}
-                    isGameActive={isActive}
                     {...this.props}/>);
         }
     }
