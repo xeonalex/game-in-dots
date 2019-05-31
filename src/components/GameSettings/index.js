@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {fetchGameSettings, setGameSettings} from "../../_redux/actions/game.settings.actions";
-import './styles.scss'
 import { Formik, Form } from 'formik';
 import * as yup from "yup";
+
 import SettingsTextInput from "../SettingsTexInput";
 import SettingsSelectElement from "../SettingsSelectElement";
+
+import {setGameSettings} from "../../_redux/actions/game.settings.actions";
+import {fetchGameModes} from "../../_redux/actions/game.modes.actions";
+
+import './styles.scss'
+
 
 class GameSettings extends Component {
     state = {
@@ -18,7 +23,7 @@ class GameSettings extends Component {
     };
 
     componentDidMount() {
-        this.props.fetchGameSettings();
+        this.props.fetchGameModes();
         this.initValidationSchema();
     }
 
@@ -47,10 +52,10 @@ class GameSettings extends Component {
             schema,
             props: {
                 gameSettings: {
+                    winner,
+                },
+                gameModes: {
                     modes,
-                    status: {
-                        winner,
-                    }
                 }
             },
             state: { formikValues }
@@ -81,14 +86,19 @@ class GameSettings extends Component {
 }
 
 const mapDispatchToProps = {
-    fetchGameSettings,
+    fetchGameModes,
     setGameSettings
 };
 
 function mapStateToProps(state) {
-    let { gameSettings } = state;
+    let {
+        gameSettings,
+        gameModes
+    } = state;
+
     return {
-        gameSettings
+        gameSettings,
+        gameModes
     };
 }
 

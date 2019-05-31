@@ -41,9 +41,7 @@ GameRules.propTypes = {
 };
 
 function mapStateToProps(state) {
-    let {
-        status: { isGameStarted }
-    } = state.gameSettings;
+    let { isGameStarted } = state.gameSettings;
 
     return {
         isGameStarted

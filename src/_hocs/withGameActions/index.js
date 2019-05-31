@@ -161,11 +161,9 @@ const mapDispatchToProps = {
 function mapStateToProps(state) {
     let {
         gameSettings: {
-            status: {
-                mode,
-                isActive,
-                playerName
-            }
+            mode,
+            isActive,
+            playerName
         }
     } = state;
 

@@ -27,7 +27,7 @@ WinnerBlock.defaultProps = {
 };
 
 function mapStateToProps(state) {
-    let { winner, isActive} = state.gameSettings.status;
+    let { winner, isActive} = state.gameSettings;
 
     return {
         winner,
