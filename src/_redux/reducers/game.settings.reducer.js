@@ -5,7 +5,8 @@ const initialState = {
     status: {
         mode: false,
         isActive: false,
-        playerName: ''
+        playerName: '',
+        isGameStarted: false
     },
     pending: false,
     fetched: false,
@@ -34,8 +35,10 @@ export function gameSettings (state = initialState, {payload, type}) {
             return {
                 ...state,
                 status: {
+                    ...state.status,
                     ...payload,
-                    isActive: true
+                    isActive: true,
+                    isGameStarted: true,
                 }
             };
         case gameSettingsConstants.SET_WINNER:
