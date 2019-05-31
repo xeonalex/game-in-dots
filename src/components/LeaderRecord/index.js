@@ -9,8 +9,8 @@ const LeaderRecord = ({ winnerData }) => {
 
     return (
         <div className={'leader-record'}>
-            <span className={'record__winner-name'}>{winner}</span>
-            <span className={'record__winner-date'}>{ dateString }</span>
+            <span className={'leader-record__winner-name'}>{winner}</span>
+            <span className={'leader-record__winner-date'}>{ dateString }</span>
         </div>
     );
 };

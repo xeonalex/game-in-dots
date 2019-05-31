@@ -1,4 +1,6 @@
 .game-field__row {
   display: flex;
+  flex-direction: row;
   flex-wrap: nowrap;
+  max-width: 100%;
 }

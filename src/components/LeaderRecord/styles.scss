@@ -8,10 +8,28 @@
   border-radius: 4px;
   font-weight: 600;
   margin-bottom: 5px;
+  width: 405px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.leader-record__winner-date {}
+.leader-record__winner-date {
+  text-align: right;
+}
 .leader-record__winner-name {
   display: inline-block;
   margin-right: 10px;
+}
+
+
+@media screen and (max-width: 500px){
+  .leader-record {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 400px){
+  .leader-record {
+    flex-direction: column;
+    height: auto;
+  }
 }

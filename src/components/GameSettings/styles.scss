@@ -1,5 +1,6 @@
 .game-settings__wrapper {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   justify-content: center;
   margin-bottom: 40px;
@@ -90,3 +91,17 @@
   }
 }
 
+
+@media screen and (max-width: 630px){
+  .game-settings__wrapper {
+    > * {
+      margin-top: 10px;
+    }
+  }
+}
+@media screen and (max-width: 500px){
+  .game-settings__wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+}
