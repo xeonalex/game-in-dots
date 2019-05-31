@@ -1,7 +1,7 @@
 import React from "react";
 import {constant, shuffle, times, chunk} from "lodash";
 import {addRecordToLeaderBoard} from "../../_redux/actions/leader.board.actions";
-import {setGameWinner} from "../../_redux/actions/game.settings.actions";
+import {offGameInitFlag, setGameWinner} from "../../_redux/actions/game.settings.actions";
 import {connect} from "react-redux";
 import {compose} from 'redux';
 import {createCordsObjFromString, rebaseMatrixCellsArray} from "../../_helpers/game.helpers";
@@ -18,12 +18,14 @@ const withGameActions = (WrappedComponent) => {
         };
 
         componentDidUpdate(prevProps, prevState, snapshot) {
-            let { isActive } = this.props;
+            const { needGameInit } = this.props;
 
-            if ( prevProps.isActive !== isActive && isActive ) this.startGame();
+            if ( needGameInit ) this.startGame();
         }
 
         startGame(){
+            this.props.offGameInitFlag();
+
             let {
                 field,
             } = this.props.mode;
@@ -155,7 +157,8 @@ const withGameActions = (WrappedComponent) => {
 
 const mapDispatchToProps = {
     addRecordToLeaderBoard,
-    setGameWinner
+    setGameWinner,
+    offGameInitFlag
 };
 
 function mapStateToProps(state) {
@@ -163,14 +166,16 @@ function mapStateToProps(state) {
         gameSettings: {
             mode,
             isActive,
-            playerName
+            playerName,
+            needGameInit
         }
     } = state;
 
     return {
         mode,
         isActive,
-        playerName
+        playerName,
+        needGameInit
     };
 }
 

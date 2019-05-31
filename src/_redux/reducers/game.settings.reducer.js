@@ -1,10 +1,11 @@
 import {gameSettingsConstants} from "../../_redux/constants/game.constants";
 
 const initialState = {
-    mode: false,
-    isActive: false,
     playerName: '',
-    isGameStarted: false
+    mode: null,
+    isActive: false,
+    isGameStarted: false,
+    needGameInit: false,
 };
 
 export function gameSettings (state = initialState, {payload, type}) {
@@ -13,14 +14,20 @@ export function gameSettings (state = initialState, {payload, type}) {
             return {
                 ...state,
                 ...payload,
-                isActive: true,
-                isGameStarted: true,
+                needGameInit: true,
             };
         case gameSettingsConstants.SET_WINNER:
             return {
                 ...state,
                 winner: payload,
                 isActive: false
+            };
+        case gameSettingsConstants.OFF_INIT_FLAG:
+            return {
+                ...state,
+                isGameStarted: true,
+                isActive: true,
+                needGameInit: false,
             };
         default:
             return state;

@@ -13,3 +13,9 @@ export const setGameWinner = (payload) => (dispatch) => {
         payload : payload
     });
 };
+
+export const offGameInitFlag = () => (dispatch) => {
+    dispatch({
+        type: gameSettingsConstants.OFF_INIT_FLAG,
+    });
+};

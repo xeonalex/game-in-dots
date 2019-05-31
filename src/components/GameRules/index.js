@@ -12,7 +12,7 @@ const GameRules = ({isGameStarted}) => {
     return (
         <div className={'game__info'}>
             <h3 className={'info-block__title'}>Game in Dots</h3>
-            <p className={'info-block__caption'}>TODO:</p>
+            <p className={'info-block__caption'}>Steps:</p>
             <ol>
                 <li>Pick game mode and insert your name</li>
                 <li>Press PLAY</li>
