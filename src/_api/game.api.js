@@ -7,9 +7,10 @@ export function fetchGameSettingsQuery() {
     })
 }
 
-export function sendWinnerInfoQuery() {
+export function sendWinnerInfoQuery(data) {
     return axiosApi({
-        method: 'GET',
-        url: `/game-settings`,
+        method: 'POST',
+        url: `/winners`,
+        data: data
     })
 }

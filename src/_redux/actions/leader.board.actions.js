@@ -1,8 +1,9 @@
 import { sendWinnerInfoQuery } from "../../_api/game.api";
 import { leaderBoardConstants } from "../constants/leader.board.constants";
+import moment from 'moment';
 
-export const sendWinnerData = ({winner, date} ) => (dispatch) => {
-    let dateUTC = date.toUTCString();
+export const addRecordToLeaderBoard = ({winner, date} ) => (dispatch) => {
+    let dateUTC = moment(date).utc().format('mm:HH; DD MMMM YYYY');
 
     return sendWinnerInfoQuery( {winner, date: dateUTC} )
         .then(({data}) => {

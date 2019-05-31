@@ -46,7 +46,6 @@ class GameSettings extends Component {
                     modes,
                     status: {
                         winner,
-                        isActive
                     }
                 }
             },
