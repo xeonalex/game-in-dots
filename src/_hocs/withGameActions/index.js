@@ -1,10 +1,11 @@
 import React from "react";
-import {constant, shuffle, times, chunk} from "lodash";
-import {addRecordToLeaderBoard} from "../../_redux/actions/leader.board.actions";
-import {offGameInitFlag, setGameWinner} from "../../_redux/actions/game.settings.actions";
 import {connect} from "react-redux";
 import {compose} from 'redux';
+import {constant, shuffle, times, chunk} from "lodash";
+
 import {createCordsObjFromString, rebaseMatrixCellsArray} from "../../_helpers/game.helpers";
+import {addRecordToLeaderBoard} from "../../_redux/actions/leader.board.actions";
+import {offGameInitFlag, setGameWinner} from "../../_redux/actions/game.settings.actions";
 
 const withGameActions = (WrappedComponent) => {
     class HOC extends React.Component {
@@ -20,23 +21,23 @@ const withGameActions = (WrappedComponent) => {
         componentDidUpdate(prevProps, prevState, snapshot) {
             const { needGameInit } = this.props;
 
-            if ( needGameInit ) this.startGame();
+            if ( needGameInit ) {
+                this.startGame();
+            }
         }
 
         startGame(){
             this.props.offGameInitFlag();
 
-            let {
-                field,
-            } = this.props.mode;
-
-
+            let { field } = this.props.mode;
+            let breakpoint = (field * field)/2;
             let arr = times(field * field, constant(false));
                 arr = chunk(arr, field);
             let arrShuffle = rebaseMatrixCellsArray(arr);
                 arrShuffle = shuffle(arrShuffle);
 
             this.setState({
+                breakpoint,
                 arr: arr,
                 arrShuffle: arrShuffle,
                 idx: -1,
@@ -44,11 +45,11 @@ const withGameActions = (WrappedComponent) => {
                     player: 0,
                     computer: 0
                 },
-                result: {}
+                result: {},
             }, this.activateRandomCell);
         }
 
-        gameEnded({winner, date}){
+        handleGameEnd({winner, date}){
             this.setState({
                 result:  {
                     winner,
@@ -58,6 +59,12 @@ const withGameActions = (WrappedComponent) => {
 
             this.props.setGameWinner(winner);
             this.props.addRecordToLeaderBoard({winner, date});
+
+            this.clearActionTimeout();
+        }
+
+        clearActionTimeout(){
+            this.timer = null;
             clearTimeout(this.timer);
         }
 
@@ -66,8 +73,10 @@ const withGameActions = (WrappedComponent) => {
 
             const { delay } = this.props.mode;
 
-            if (this.timer) clearTimeout(this.timer);
+            if (this.timer) this.clearActionTimeout();
+
             this.setNewRandomCell();
+
             this.timer = setTimeout(()=>{
                 this.increaseScore('computer');
                 this.activateRandomCell();
@@ -89,9 +98,7 @@ const withGameActions = (WrappedComponent) => {
         }
 
         checkForWinner() {
-            const { score } = this.state;
-            const { field } = this.props.mode;
-            const middle = field*field/2;
+            const { score, breakpoint } = this.state;
 
             let leader, leaderScore;
 
@@ -105,8 +112,8 @@ const withGameActions = (WrappedComponent) => {
                 leader = 'Computer AI';
             }
 
-            if (leaderScore > middle) {
-                this.gameEnded({winner: leader, date: new Date()});
+            if (leaderScore > breakpoint) {
+                this.handleGameEnd({winner: leader, date: new Date()});
                 return true;
             }
 

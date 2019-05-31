@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import LeaderRecord from "../LeaderRecord";
-import PropTypes from "prop-types";
 
 const LeaderList = ({winners}) => {
     return (

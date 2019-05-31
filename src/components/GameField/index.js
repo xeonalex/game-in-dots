@@ -1,8 +1,11 @@
 import React from 'react';
-import withGameActions from "../../_hocs/withGameActions";
-import './styles.scss'
 import PropTypes from "prop-types";
+
 import GameRow from "../GameRow";
+import withGameActions from "../../_hocs/withGameActions";
+
+import './styles.scss'
+
 
 const GameField = ({activatedCell, cellsArray, handleGameCellClick}) => {
 

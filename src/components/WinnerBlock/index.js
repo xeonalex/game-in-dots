@@ -1,7 +1,8 @@
 import React from 'react';
-import {connect} from "react-redux";
-import './styles.scss'
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
+import './styles.scss'
 
 const WinnerBlock = ({winner, isActive}) => {
     if (winner && !isActive) {

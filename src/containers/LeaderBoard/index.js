@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import './style.scss'
 import LeaderList from "../../components/LeaderList";
+
+import './style.scss'
 
 class LeaderBoardContainer extends Component {
     render() {

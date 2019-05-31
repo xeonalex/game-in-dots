@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.scss';
 import LeaderBoardContainer from "../../containers/LeaderBoard";
 import GameContainer from "../../containers/Game";
 
+import './App.scss';
 
 function App() {
     return (

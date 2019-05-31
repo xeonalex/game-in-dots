@@ -1,7 +1,10 @@
 import React from 'react';
-import './styles.scss'
-import moment from 'moment';
 import PropTypes from "prop-types";
+
+import moment from 'moment';
+
+import './styles.scss'
+
 
 const LeaderRecord = ({ winnerData }) => {
     const { winner, date } = winnerData;

@@ -1,6 +1,7 @@
 import React from 'react';
-import {ErrorMessage, Field} from "formik";
 import PropTypes from "prop-types";
+
+import {ErrorMessage, Field} from "formik";
 
 const SettingsTextInput = ({name, placeholder, ...props}) => {
     return (

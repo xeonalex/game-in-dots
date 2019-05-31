@@ -1,5 +1,6 @@
 .app__right-side {
   padding: 50px;
+  min-width: 405px;
 }
 
 .caption {
@@ -13,6 +14,7 @@
     width: 100%;
     padding: 30px;
     display: block;
+    min-width: initial;
   }
   .caption {
     text-align: center;

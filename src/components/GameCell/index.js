@@ -1,7 +1,8 @@
 import React from 'react';
-import './styles.scss'
 import PropTypes from 'prop-types'
 import {isEqualCellCoords} from "../../_helpers/game.helpers";
+
+import './styles.scss'
 
 const GameCell = ({handleClick, activatedCell, coords: { x, y }, status}) => {
     let classNames = ['game-field__cell'];
