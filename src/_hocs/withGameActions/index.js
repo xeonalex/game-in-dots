@@ -1,9 +1,10 @@
 import React from "react";
-import {constant, shuffle, times} from "lodash";
+import {constant, shuffle, times, chunk} from "lodash";
 import {addRecordToLeaderBoard} from "../../_redux/actions/leader.board.actions";
 import {setGameWinner} from "../../_redux/actions/game.settings.actions";
 import {connect} from "react-redux";
 import {compose} from 'redux';
+import {createCordsObjFromString, rebaseMatrixCellsArray} from "../../_helpers/game.helpers";
 
 const withGameActions = (WrappedComponent) => {
     class HOC extends React.Component {
@@ -27,9 +28,11 @@ const withGameActions = (WrappedComponent) => {
                 field,
             } = this.props.mode;
 
-            const arr = times(field * field, constant(false));
-            let arrShuffle = times(field * field, (i)=>i);
-            arrShuffle = shuffle(arrShuffle);
+
+            let arr = times(field * field, constant(false));
+                arr = chunk(arr, field);
+            let arrShuffle = rebaseMatrixCellsArray(arr);
+                arrShuffle = shuffle(arrShuffle);
 
             this.setState({
                 arr: arr,
@@ -62,7 +65,6 @@ const withGameActions = (WrappedComponent) => {
             const { delay } = this.props.mode;
 
             if (this.timer) clearTimeout(this.timer);
-
             this.setNewRandomCell();
             this.timer = setTimeout(()=>{
                 this.increaseScore('computer');
@@ -74,9 +76,12 @@ const withGameActions = (WrappedComponent) => {
             this.setState((state)=>{
                 const newCellId = state.idx+1;
 
+                const randomCell = state.arrShuffle[newCellId];
+                const activatedCell = createCordsObjFromString(randomCell);
+
                 return {
                     idx: newCellId,
-                    activatedCellId: state.arrShuffle[newCellId]
+                    activatedCell
                 }
             });
         }
@@ -108,37 +113,40 @@ const withGameActions = (WrappedComponent) => {
 
         increaseScore = (unit) => {
             this.setState((state)=>{
-                let { arr, score, activatedCellId } = state;
+                let { arr, score, activatedCell } = state;
+                let { x,y } = activatedCell.coords;
 
-                arr[activatedCellId] = unit;
+                arr[x][y] = unit;
                 score[unit]+=1;
 
                 return { arr, score };
             });
         };
 
-        onGameCellClick = (idx) => {
-            return (e) => {
-                const { activatedCellId, result } = this.state;
+        onGameCellClick = (isActiveCell) => () => {
+            const { result } = this.state;
 
-                if (idx === activatedCellId && !result.winner) {
-                    this.increaseScore('player');
+            if (isActiveCell && !result.winner) {
+                this.increaseScore('player');
 
-                    this.activateRandomCell();
-                }
+                this.activateRandomCell();
             }
         };
 
-
         render() {
             let {
-                state: {arr, activatedCellId},
+                state: {arr, activatedCell},
                 onGameCellClick
             } = this;
 
             if (!arr.length) return '';
 
-            return (<WrappedComponent cellsArray={arr} activatedCellId={activatedCellId} handleGameCellClick={onGameCellClick} {...this.props}/>);
+            return (
+                <WrappedComponent
+                    cellsArray={arr}
+                    activatedCell={activatedCell}
+                    handleGameCellClick={onGameCellClick}
+                    {...this.props}/>);
         }
     }
 

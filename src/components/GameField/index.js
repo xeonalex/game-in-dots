@@ -1,15 +1,22 @@
 import React from 'react';
 import withGameActions from "../../_hocs/withGameActions";
-import GameCell from "../GameCell";
 import './styles.scss'
 import PropTypes from "prop-types";
+import GameRow from "../GameRow";
 
-const GameField = ({activatedCellId, cellsArray, handleGameCellClick}) => {
+const GameField = ({activatedCell, cellsArray, handleGameCellClick}) => {
+
+    if (!activatedCell) return '';
     return (
         <div className={'game-field__container'}>
             {
-                cellsArray.map(( cell, idx )=>
-                    <GameCell key={idx} idx={idx} activatedCellId={activatedCellId} status={cell} handleClick={handleGameCellClick(idx)}/>
+                cellsArray.map(( cells, x )=>
+                    <GameRow
+                        key={x}
+                        coords={{x}}
+                        activatedCell={activatedCell}
+                        cells={cells}
+                        handleGameCellClick={handleGameCellClick}/>
                 )
             }
         </div>
@@ -19,7 +26,7 @@ const GameField = ({activatedCellId, cellsArray, handleGameCellClick}) => {
 GameField.propTypes = {
     handleGameCellClick: PropTypes.func.isRequired,
     cellsArray: PropTypes.array.isRequired,
-    activatedCellId: PropTypes.any,
+    activatedCell: PropTypes.any,
 };
 
 export default withGameActions(GameField);

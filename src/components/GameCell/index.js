@@ -1,25 +1,30 @@
 import React from 'react';
 import './styles.scss'
 import PropTypes from 'prop-types'
+import {isEqualCellCoords} from "../../_helpers/game.helpers";
 
-const GameCell = ({handleClick, activatedCellId, idx, status}) => {
+const GameCell = ({handleClick, activatedCell, coords: { x, y }, status}) => {
     let classNames = ['game-field__cell'];
+    let condition = isEqualCellCoords(activatedCell.coords, { x, y });
 
-    if (activatedCellId === idx) {
+    if ( condition ) {
         classNames.push('active-cell');
     } else {
         status && classNames.push(status === 'player' ? 'player-cell' : 'computer-cell');
     }
 
     return (
-        <div className={classNames.join(' ')} onClick={handleClick}/>
+        <div className={classNames.join(' ')} onClick={handleClick(condition)}/>
     );
 };
 
 GameCell.propTypes = {
     handleClick: PropTypes.func.isRequired,
-    activatedCellId: PropTypes.any,
-    idx: PropTypes.number.isRequired,
+    activatedCell: PropTypes.any,
+    coords: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired
+    }).isRequired,
     status: PropTypes.oneOfType([
         PropTypes.string.isRequired,
         PropTypes.bool.isRequired,
