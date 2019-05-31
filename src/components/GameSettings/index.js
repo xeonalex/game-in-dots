@@ -5,7 +5,7 @@ import './styles.scss'
 import { Formik, Form } from 'formik';
 import * as yup from "yup";
 import SettingsTextInput from "../SettingsTexInput";
-import GameModeSelectElement from "../SettingsSelectElement";
+import SettingsSelectElement from "../SettingsSelectElement";
 
 class GameSettings extends Component {
     state = {
@@ -67,7 +67,7 @@ class GameSettings extends Component {
             >
                 {({ setFieldValue }) => (
                     <Form className={'game-settings__wrapper'}>
-                        <GameModeSelectElement
+                        <SettingsSelectElement
                             handleChange={ (option) =>setFieldValue('mode', option) }
                             options={ modes }
                         />

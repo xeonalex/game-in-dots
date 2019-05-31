@@ -3,7 +3,7 @@ import { leaderBoardConstants } from "../constants/leader.board.constants";
 import moment from 'moment';
 
 export const addRecordToLeaderBoard = ({winner, date} ) => (dispatch) => {
-    let dateUTC = moment(date).utc().format('mm:HH; DD MMMM YYYY');
+    let dateUTC = moment(date).utc().format('HH:mm; DD MMMM YYYY');
 
     return sendWinnerInfoQuery( {winner, date: dateUTC} )
         .then(({data}) => {

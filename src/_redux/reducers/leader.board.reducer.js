@@ -1,7 +1,7 @@
 import {leaderBoardConstants} from "../../_redux/constants/leader.board.constants";
 
 const initialState = {
-    winners: [{winner: 'asdas', date: new Date()}],
+    winners: [],
 };
 
 export function leadersBoard (state = initialState, {payload, type}) {

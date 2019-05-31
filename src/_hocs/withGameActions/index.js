@@ -52,7 +52,7 @@ const withGameActions = (WrappedComponent) => {
             });
 
             this.props.setGameWinner(winner);
-            // this.props.addRecordToLeaderBoard({winner, date});
+            this.props.addRecordToLeaderBoard({winner, date});
             clearTimeout(this.timer);
         }
 
@@ -135,6 +135,8 @@ const withGameActions = (WrappedComponent) => {
                 state: {arr, activatedCellId},
                 onGameCellClick
             } = this;
+
+            if (!arr.length) return '';
 
             return (<WrappedComponent cellsArray={arr} activatedCellId={activatedCellId} handleGameCellClick={onGameCellClick} {...this.props}/>);
         }

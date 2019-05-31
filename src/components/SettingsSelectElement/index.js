@@ -1,8 +1,9 @@
 import React from 'react';
 import Select from "react-select";
-import {ErrorMessage, Form} from "formik";
+import {ErrorMessage} from "formik";
+import PropTypes from "prop-types";
 
-const GameModeSelectElement = ({options, handleChange}) => {
+const SettingsSelectElement = ({options, handleChange}) => {
     return (
         <div className="settings-form__element">
             <Select
@@ -20,4 +21,13 @@ const GameModeSelectElement = ({options, handleChange}) => {
     );
 };
 
-export default GameModeSelectElement;
+SettingsSelectElement.propTypes = {
+    options: PropTypes.array.isRequired,
+    handleChange: PropTypes.func.isRequired,
+};
+
+SettingsSelectElement.defaultProps = {
+    options: [],
+};
+
+export default SettingsSelectElement;

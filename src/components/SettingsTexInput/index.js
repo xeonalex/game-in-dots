@@ -1,5 +1,6 @@
 import React from 'react';
-import {ErrorMessage, Field, Form} from "formik";
+import {ErrorMessage, Field} from "formik";
+import PropTypes from "prop-types";
 
 const SettingsTextInput = ({name, placeholder, ...props}) => {
     return (
@@ -8,6 +9,16 @@ const SettingsTextInput = ({name, placeholder, ...props}) => {
             <ErrorMessage className='field__error-massage' name={name} component="div" />
         </div>
     );
+};
+
+SettingsTextInput.propTypes = {
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+};
+
+SettingsTextInput.defaultProps = {
+    name: 'example',
+    placeholder: 'Enter field value'
 };
 
 export default SettingsTextInput;
