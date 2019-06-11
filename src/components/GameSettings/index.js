@@ -6,11 +6,7 @@ import * as yup from "yup";
 import SettingsTextInput from "../SettingsTexInput";
 import SettingsSelectElement from "../SettingsSelectElement";
 
-import {setGameSettings} from "../../_redux/actions/game.settings.actions";
-import {fetchGameModes} from "../../_redux/actions/game.modes.actions";
-
 import './styles.scss'
-
 
 class GameSettings extends Component {
     state = {
@@ -42,7 +38,6 @@ class GameSettings extends Component {
             mode,
             playerName
         };
-
         this.props.setGameSettings(settings);
     };
 
@@ -85,10 +80,10 @@ class GameSettings extends Component {
     }
 }
 
-const mapDispatchToProps = {
-    fetchGameModes,
-    setGameSettings
-};
+const mapDispatchToProps = dispatch => ({
+    fetchGameModes: () => dispatch.gameModes.fetchGameModes(),
+    setGameSettings: (payload) => dispatch.gameSettings.setGameSettings(payload),
+});
 
 function mapStateToProps(state) {
     let {

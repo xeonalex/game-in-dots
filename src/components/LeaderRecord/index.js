@@ -5,7 +5,6 @@ import moment from 'moment';
 
 import './styles.scss'
 
-
 const LeaderRecord = ({ winnerData }) => {
     const { winner, date } = winnerData;
     const dateString = moment(date).format('DD.MM.YYYY HH:mm:ss');

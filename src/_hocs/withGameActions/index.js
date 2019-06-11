@@ -4,8 +4,6 @@ import {compose} from 'redux';
 import {constant, shuffle, times, chunk} from "lodash";
 
 import {createCordsObjFromString, rebaseMatrixCellsArray} from "../../_helpers/game.helpers";
-import {addRecordToLeaderBoard} from "../../_redux/actions/leader.board.actions";
-import {offGameInitFlag, setGameWinner} from "../../_redux/actions/game.settings.actions";
 
 const withGameActions = (WrappedComponent) => {
     class HOC extends React.Component {
@@ -21,7 +19,7 @@ const withGameActions = (WrappedComponent) => {
         componentDidUpdate(prevProps, prevState, snapshot) {
             const { needGameInit } = this.props;
 
-            if ( needGameInit ) {
+            if ( !prevProps.needGameInit && needGameInit ) {
                 this.startGame();
             }
         }
@@ -136,7 +134,6 @@ const withGameActions = (WrappedComponent) => {
 
         render() {
             let {
-                props: {isActive},
                 state: {arr, activatedCell},
                 onGameCellClick
             } = this;
@@ -155,11 +152,11 @@ const withGameActions = (WrappedComponent) => {
     return HOC
 };
 
-const mapDispatchToProps = {
-    addRecordToLeaderBoard,
-    setGameWinner,
-    offGameInitFlag
-};
+const mapDispatchToProps = (dispatch) => ({
+    addRecordToLeaderBoard: dispatch.leadersBoard.addRecordToLeaderBoard,
+    setGameWinner: dispatch.gameSettings.setGameWinner,
+    offGameInitFlag: dispatch.gameSettings.offGameInitFlag
+});
 
 function mapStateToProps(state) {
     let {
